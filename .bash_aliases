@@ -1,5 +1,10 @@
 # ~/.bash_aliases
 
+
+# Emacs
+alias ec='emacsclient -nw'
+
+
 # Docker
 # See also https://www.calazan.com/docker-cleanup-commands/
 
