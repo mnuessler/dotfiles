@@ -1,9 +1,15 @@
 # ~/.bash_aliases
 
+# General
+alias ll='ls -l'
 
 # Emacs
 alias ec='emacsclient -nw'
 
+# Git / Hub
+if type hub > /dev/null; then
+   alias git=hub
+fi
 
 # Docker
 # See also https://www.calazan.com/docker-cleanup-commands/
