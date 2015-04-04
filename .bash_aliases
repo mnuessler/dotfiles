@@ -3,12 +3,17 @@
 # General
 alias ll='ls -l'
 
+# Homebrew
+if type brew > /dev/null; then
+    alias brew-clean-cache="if [[ $(brew --cache) == *Library* ]]; then find $(brew --cache) -name '*.tar.gz' -o -name '*.dmg' -o -name '*.pkg' | xargs rm; fi"
+fi
+
 # Emacs
 alias ec='emacsclient -nw'
 
 # Git / Hub
 if type hub > /dev/null; then
-   alias git=hub
+    alias git=hub
 fi
 
 # Docker
