@@ -128,3 +128,8 @@ screen -t bash 1
 #    %+Lw     - window list from the next window on (-), show window flags (L)
 #    %-0<     - truncation/padding point.  Place this point zero spaces (0)
 #               from the right margin (-).
+
+# Layout
+# Save layout per default so that information about regions is not lost
+# after detaching from the session (requires screen >= 4.0).
+layout save default
