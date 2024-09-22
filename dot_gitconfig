@@ -1,0 +1,68 @@
+[alias]
+	st = status -s -b
+	ci = commit
+	co = checkout
+	df = diff
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	rb = rebase
+	br = branch
+	pushf = "push --force-with-lease"
+	unstage = reset HEAD --
+	discard = checkout --
+	last = log -1 HEAD
+	#oldest-ancestor = !zsh -c 'diff -u <(git rev-list --first-parent \"${1:-master}\") <(git rev-list --first-parent \"${2:-HEAD}\") | sed -ne \"s/^ //p\" | head -1' -
+	oldest-ancestor = !zsh -c 'diff --old-line-format='' --new-line-format='' <(git rev-list --first-parent "${1:-master}") <(git rev-list --first-parent "${2:-HEAD}") | head -1' -
+	branchdiff = '!sh -c "git diff `git oldest-ancestor`.."'
+	branchlog = '!sh -c "git log `git oldest-ancestor`.."'
+	rebase-master = !git checkout master && git pull && git rebase master
+	spull = !git-svn fetch && git-svn rebase
+	spush = !git-svn dcommit
+        gerrit-push-for-review = push origin HEAD:refs/for/master
+        gerrit-push-as-draft = push origin HEAD:refs/drafts/master
+	appraise = !/Users/matthiasnuessler/projects/go/bin/git-appraise
+[user]
+	email = m.nuessler@web.de
+	name = Matthias Nüßler
+	signingkey = FC36DCAE
+[core]
+	excludesfile = /Users/matthiasnuessler/.gitignore_global
+	whitespace = trailing-space
+	editor = emacsclient -nw
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[merge]
+	tool = p4merge
+[difftool "p4merge"]
+	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "p4merge"]
+	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+	trustExitCode = true
+[mergetool "ediff"]
+	cmd = emacsclient -c -a \"\"  --eval \"(ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" nil \\\"$MERGED\\\")\"
+[mergetool "kdiff3"]
+	cmd = kdiff3 \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
+	trustExitCode = true
+[branch]
+	autosetuprebase = always
+[branch "master"]
+	rebase = true
+[color]
+	ui = auto
+[push]
+	default = simple
+[gitreview]
+	username = matthias.nuessler
+[commit]
+	template = /Users/matthiasnuessler/.stCommitMsg
+[magit]
+	hideCampaign = true
+[github]
+	user = mnuessler
+[difftool "sourcetree"]
+	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+	trustExitCode = true
+[init]
+	defaultBranch = main
