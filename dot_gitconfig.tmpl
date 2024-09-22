@@ -21,7 +21,7 @@
         gerrit-push-as-draft = push origin HEAD:refs/drafts/master
 	appraise = !/Users/matthiasnuessler/projects/go/bin/git-appraise
 [user]
-	email = m.nuessler@web.de
+	email = {{ .email | quote }}
 	name = Matthias Nüßler
 	signingkey = FC36DCAE
 [core]
