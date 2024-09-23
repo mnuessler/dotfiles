@@ -1,0 +1,28 @@
+{{- $email := promptStringOnce . "email" "Email address" -}}
+
+[merge]
+command = "emacsclient"
+args = [
+     "--create-frame",
+     "--alternate-editor",
+     "",
+     "--frame-parameters",
+     "((fullscreen . maximized) (z-group . above))",
+     "--eval",
+     "(ediff-merge-files \"{{ "{{" }} .Destination {{ "}}" }}\" \"{{ "{{" }} .Source {{ "}}" }}\" nil \"{{ "{{" }} .Target {{ "}}" }}\")"
+]
+
+[diff]
+command = "emacsclient"
+args = [
+     "--create-frame",
+     "--alternate-editor",
+     "",
+     "--frame-parameters",
+     "((fullscreen . maximized) (z-group . above))",
+     "--eval",
+     "(ediff-files \"{{ "{{" }} .Destination {{ "}}" }}\" \"{{ "{{" }} .Target {{ "}}" }}\")"
+]
+
+[data]
+    email = {{ $email | quote }}
