@@ -1,0 +1,14 @@
+[directory]
+fish_style_pwd_dir_length = 1
+
+[kubernetes]
+symbol = "☸ "
+style = "bold blue"
+disabled = false
+
+[gcloud]
+{{- if eq .chezmoi.hostname "MacBook-Pro-3" }}
+disabled = false
+{{ else }}
+disabled = true
+{{- end }}
