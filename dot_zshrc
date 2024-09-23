@@ -23,9 +23,6 @@ if [ -f "$HOME/opt/google-cloud-sdk/completion.zsh.inc" ]; then
     . "$HOME/opt/google-cloud-sdk/completion.zsh.inc"
 fi
 
-# Starship
-eval "$(starship init zsh)"
-
 # FZF
 source <(fzf --zsh)
 
@@ -45,3 +42,32 @@ alias ec='emacsclient -nw'
 # Ruby
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$HOME/.gem/ruby/$(ruby --version | cut -f 2 -d ' ')/bin:$PATH"
+
+export EDITOR="/opt/homebrew/bin/emacsclient -nw"
+
+# Tab completion for Babashka tasks
+# See https://book.babashka.org/#_terminal_tab_completion
+_bb_tasks() {
+    local matches=(`bb tasks |tail -n +3 |cut -f1 -d ' '`)
+    compadd -a matches
+    _files  # autocomplete filenames as well
+}
+compdef _bb_tasks bb
+
+# Shell completions for chezmoi
+if command -v chezmoi &>/dev/null; then
+    eval "$(chezmoi completion zsh)"
+fi
+
+# The cross-shell prompt for astronauts: https://starship.rs
+if command -v starship &>/dev/null; then
+    eval "$(starship init zsh)"
+fi
+
+# direnv – unclutter your .profile
+# https://direnv.net/ | brew install direnv
+# Hook direnv into the shell.  Make sure it appears even after rvm,
+# git-prompt and other shell extensions that manipulate the prompt.
+if hash direnv 2>/dev/null; then
+    eval "$(direnv hook zsh)"
+fi
